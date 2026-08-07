@@ -1,0 +1,910 @@
+﻿{<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XI-3 Saintek-1 Digital — Portal Resmi Kelas</title>
+  
+  <!-- Tabler Icons CDN untuk menampilkan semua ikon (ti ti-...) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  <style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
+  :root{--pk:#c2185b;--pk2:#e91e8c;--pk3:#f48fb1;--pk4:#fce4ec;--pk5:#880e4f;--pk6:#ff80ab;--txt:#3b0025;--txt2:#880e4f;--white:#fff;--surf:#fff5f8}
+  body{background:#fff0f5;color:var(--txt)}
+
+  /* NAV */
+  .nav{background:linear-gradient(90deg,#880e4f 0%,#c2185b 40%,#e91e8c 100%);position:sticky;top:0;z-index:999;box-shadow:0 3px 16px #c2185b55}
+  .nav-brand{display:flex;align-items:center;gap:10px;padding:10px 18px 4px;color:#fff}
+  .nav-brand-icon{width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px}
+  .nav-brand-text{font-size:16px;font-weight:600;line-height:1.1}
+  .nav-brand-sub{font-size:10px;opacity:.8;font-weight:400}
+  .nav-menu{display:flex;gap:0;overflow-x:auto;padding:0 8px 0;scrollbar-width:none}
+  .nav-menu::-webkit-scrollbar{display:none}
+  .nav-btn{padding:8px 13px;border:none;background:none;color:rgba(255,255,255,.78);cursor:pointer;font-size:12px;white-space:nowrap;border-bottom:3px solid transparent;transition:.18s;display:flex;align-items:center;gap:5px}
+  .nav-btn:hover{color:#fff;background:rgba(255,255,255,.1)}
+  .nav-btn.on{color:#fff;border-bottom-color:#ffeb3b;background:rgba(255,255,255,.13);font-weight:600}
+
+  /* PAGES */
+  .pg{display:none;padding:18px;max-width:920px;margin:0 auto;animation:fi .28s ease}
+  .pg.on{display:block}
+  @keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+  /* CARDS */
+  .card{background:#fff;border-radius:14px;border:.5px solid #f8bbd0;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px #e91e8c11}
+  .card-gl{background:linear-gradient(135deg,#fce4ec 0%,#fff 60%);border:1px solid #f48fb1}
+  .sec{font-size:16px;font-weight:600;color:#880e4f;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .sec i{font-size:18px;color:#e91e8c}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#c2185b,#e91e8c,#f06292);border-radius:18px;padding:28px 20px;text-align:center;margin-bottom:18px;color:#fff;position:relative;overflow:hidden}
+  .hero::before{content:'🌸';position:absolute;font-size:100px;opacity:.07;top:-10px;right:-10px}
+  .hero::after{content:'💕';position:absolute;font-size:80px;opacity:.06;bottom:-20px;left:-10px}
+  .hero-tag{background:rgba(255,255,255,.2);display:inline-block;padding:3px 14px;border-radius:20px;font-size:11px;margin-bottom:10px;letter-spacing:.5px}
+  .hero h1{font-size:26px;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+  .hero p{font-size:13px;opacity:.9;margin-top:5px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0 0}
+  .stat{background:rgba(255,255,255,.18);border-radius:10px;padding:10px;text-align:center;backdrop-filter:blur(4px)}
+  .stat-n{font-size:22px;font-weight:700}
+  .stat-l{font-size:10px;opacity:.85;margin-top:2px}
+
+  /* CAROUSEL */
+  .carousel-wrap{position:relative;overflow:hidden;border-radius:14px;border:1px solid #f48fb1;margin-bottom:6px;background:#fce4ec}
+  .car-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+  .car-slide{min-width:100%;padding:22px 20px;display:flex;align-items:center;gap:16px}
+  .car-ava{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#e91e8c,#f48fb1);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;box-shadow:0 4px 12px #e91e8c44}
+  .car-info h3{font-size:15px;font-weight:600;color:#880e4f}
+  .car-info p{font-size:12px;color:#c2185b;margin-top:3px;line-height:1.5}
+  .car-badge{display:inline-block;background:#fce4ec;color:#ad1457;border:.5px solid #f48fb1;border-radius:20px;padding:2px 10px;font-size:10px;margin-top:5px;font-weight:600}
+  .car-arrow{position:absolute;top:50%;transform:translateY(-50%);background:#e91e8c;color:#fff;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px #e91e8c66;z-index:10}
+  .car-arrow.l{left:8px}.car-arrow.r{right:8px}
+  .car-dots{display:flex;justify-content:center;gap:5px;margin-top:8px}
+  .cdot{width:7px;height:7px;border-radius:50%;background:#f48fb1;border:none;cursor:pointer;transition:.2s}
+  .cdot.on{background:#e91e8c;width:20px;border-radius:5px}
+
+  /* QUOTE */
+  .quote{background:linear-gradient(135deg,#fce4ec,#fff9fc);border-left:4px solid #e91e8c;border-radius:0 12px 12px 0;padding:14px 18px;margin:12px 0;color:#880e4f;font-style:italic;font-size:14px;line-height:1.8}
+  .quote cite{display:block;font-style:normal;font-size:11px;color:#c2185b;margin-top:7px;font-weight:600;letter-spacing:.3px}
+
+  /* ACCORDION */
+  .acc{border:1px solid #f8bbd0;border-radius:12px;margin-bottom:9px;overflow:hidden}
+  .acc-h{padding:12px 16px;background:linear-gradient(90deg,#fce4ec,#fff5f8);cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:#880e4f;font-size:13.5px;font-weight:600;border:none;width:100%;text-align:left;transition:.15s}
+  .acc-h:hover{background:#f8bbd0}
+  .acc-b{max-height:0;overflow:hidden;transition:max-height .38s ease,padding .3s}
+  .acc-b.op{max-height:500px;padding:14px 16px}
+  .acc-b p,.acc-b li{font-size:13px;color:#3b0025;line-height:1.75}
+  .acc-b ul{padding-left:18px;margin-top:4px}
+  .acc-arr{transition:.3s;font-style:normal;color:#f48fb1}
+  .acc-arr.op{transform:rotate(180deg)}
+
+  /* RATING */
+  .stars{display:flex;gap:3px;align-items:center}
+  .st{font-size:22px;cursor:pointer;color:#f8bbd0;border:none;background:none;padding:1px;transition:.15s;line-height:1}
+  .st.on{color:#e91e8c}
+  .st:hover{transform:scale(1.25) rotate(-5deg)}
+  .r-lbl{font-size:12px;color:#ad1457;margin-left:8px;font-weight:500}
+
+  /* POPOVER */
+  .pop-w{position:relative;display:inline-block}
+  .pop-btn{background:linear-gradient(135deg,#e91e8c,#c2185b);color:#fff;border:none;border-radius:10px;padding:8px 16px;cursor:pointer;font-size:12.5px;font-weight:500;box-shadow:0 2px 8px #e91e8c44;transition:.18s;display:flex;align-items:center;gap:6px}
+  .pop-btn:hover{background:linear-gradient(135deg,#c2185b,#880e4f);transform:translateY(-1px)}
+  .pop{position:absolute;left:0;top:42px;background:#fff;border:1px solid #f48fb1;border-radius:12px;padding:14px;width:240px;box-shadow:0 8px 30px #c2185b22;z-index:300;display:none;animation:fi .2s}
+  .pop.on{display:block}
+  .pop h4{color:#ad1457;font-size:13.5px;margin-bottom:7px;font-weight:600}
+  .pop p{font-size:12px;color:#880e4f;line-height:1.65}
+  .pop-divider{border:none;border-top:.5px solid #fce4ec;margin:8px 0}
+
+  /* TREE */
+  .tree ul{list-style:none;padding-left:22px}
+  .tree>ul{padding-left:0}
+  .tree li{margin:3px 0}
+  .tn{display:flex;align-items:center;gap:7px;cursor:pointer;padding:5px 10px;border-radius:8px;font-size:13px;color:#880e4f;transition:.15s}
+  .tn:hover{background:#fce4ec}
+  .tn i{font-size:15px;color:#e91e8c}
+  .tgl{width:14px;font-size:10px;color:#f48fb1;font-style:normal;display:inline-flex}
+  .tch{display:none}.tch.op{display:block}
+
+  /* TABS */
+  .tab-list{display:flex;gap:3px;border-bottom:2px solid #f8bbd0;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap}
+  .tab-list::-webkit-scrollbar{display:none}
+  .tab-b{padding:8px 16px;border:none;background:none;cursor:pointer;color:#ad1457;font-size:12.5px;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;border-radius:8px 8px 0 0;transition:.18s}
+  .tab-b.on{color:#e91e8c;border-bottom-color:#e91e8c;background:#fce4ec;font-weight:600}
+  .tab-b:hover{background:#fce4ec}
+  .tab-pane{display:none}.tab-pane.on{display:block}
+
+  /* PAGINATION */
+  .pag{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:14px}
+  .pb{width:34px;height:34px;border:1px solid #f48fb1;background:#fff;border-radius:9px;cursor:pointer;font-size:13px;color:#ad1457;display:flex;align-items:center;justify-content:center;transition:.18s;font-weight:500}
+  .pb:hover{background:#fce4ec;border-color:#e91e8c}
+  .pb.on{background:linear-gradient(135deg,#e91e8c,#c2185b);color:#fff;border-color:#e91e8c;box-shadow:0 2px 8px #e91e8c44}
+  .pb:disabled{opacity:.35;cursor:default}
+
+  /* SISWA GRID */
+  .sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px}
+  .sc{background:#fff;border:1px solid #f8bbd0;border-radius:12px;padding:12px 8px;text-align:center;transition:.2s}
+  .sc:hover{border-color:#e91e8c;transform:translateY(-2px);box-shadow:0 4px 14px #e91e8c22}
+  .sa{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#e91e8c,#f48fb1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;margin:0 auto 7px;box-shadow:0 3px 8px #e91e8c33}
+  .sn{font-size:11.5px;color:#3b0025;font-weight:600;line-height:1.3}
+  .sno{font-size:10px;color:#f48fb1;margin-top:3px}
+
+  /* JADWAL */
+  .jt{width:100%;border-collapse:collapse;font-size:12px;border-radius:12px;overflow:hidden}
+  .jt th{background:#e91e8c;color:#fff;padding:8px 10px;text-align:center;font-weight:600}
+  .jt td{padding:7px 10px;border:.5px solid #fce4ec;text-align:center;color:#3b0025}
+  .jt tr:nth-child(even) td{background:#fff5f8}
+  .jt .jam{background:#fce4ec;color:#ad1457;font-weight:600;text-align:left}
+
+  /* MADING */
+  .mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .mc{background:#fff;border:1px solid #f8bbd0;border-radius:12px;overflow:hidden;transition:.2s}
+  .mc:hover{transform:translateY(-3px);box-shadow:0 6px 18px #e91e8c22;border-color:#f48fb1}
+  .mi{height:90px;display:flex;align-items:center;justify-content:center;font-size:40px}
+  .mb{padding:10px}
+  .mb h4{font-size:12.5px;color:#ad1457;font-weight:600}
+  .mb p{font-size:11px;color:#880e4f;margin-top:3px;line-height:1.5}
+  .mb .tag{display:inline-block;background:#fce4ec;color:#c2185b;border-radius:20px;padding:2px 8px;font-size:10px;margin-top:5px;font-weight:500}
+
+  /* PRESTASI */
+  .pg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .pgc{background:linear-gradient(135deg,#fce4ec,#fff);border:1px solid #f48fb1;border-radius:14px;padding:14px;text-align:center;transition:.2s}
+  .pgc:hover{transform:translateY(-2px);box-shadow:0 4px 14px #e91e8c22}
+  .pgc .ico{font-size:32px;margin-bottom:7px}
+  .pgc h4{font-size:12.5px;font-weight:600;color:#ad1457}
+  .pgc p{font-size:11px;color:#880e4f;margin-top:3px}
+
+  /* INVENTARIS */
+  .ig{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px}
+  .ic{background:#fff;border:1px solid #f8bbd0;border-radius:12px;padding:13px;text-align:center;transition:.2s}
+  .ic:hover{border-color:#f48fb1;box-shadow:0 3px 10px #e91e8c1a}
+  .ic .ii{font-size:30px;margin-bottom:7px}
+  .ic h4{font-size:12.5px;color:#3b0025;font-weight:600}
+  .ic p{font-size:11px;margin-top:3px}
+  
+  .ic .ok{color:#43a047}.ic .warn{color:#fb8c00}.ic .bad{color:#e53935}
+
+  /* FORM */
+  .fg{margin-bottom:12px}
+  .fl{display:block;font-size:12.5px;color:#880e4f;margin-bottom:4px;font-weight:500}
+  .fi{width:100%;padding:9px 13px;border:1px solid #f8bbd0;border-radius:9px;font-size:13px;color:#3b0025;background:#fff5f8;transition:.18s}
+  .fi:focus{outline:none;border-color:#e91e8c;background:#fff;box-shadow:0 0 0 3px #e91e8c18}
+  .btn-pk{background:linear-gradient(135deg,#e91e8c,#c2185b);color:#fff;border:none;border-radius:10px;padding:10px 24px;cursor:pointer;font-size:13.5px;font-weight:600;box-shadow:0 3px 12px #e91e8c44;transition:.18s}
+  .btn-pk:hover{transform:translateY(-1px);box-shadow:0 5px 18px #e91e8c55}
+  .wa-btn{display:flex;align-items:center;gap:10px;background:#25d366;color:#fff;border:none;border-radius:12px;padding:12px 20px;cursor:pointer;font-size:13.5px;font-weight:600;width:100%;justify-content:center;transition:.18s;box-shadow:0 3px 12px #25d36644}
+  .wa-btn:hover{background:#1da851;transform:translateY(-1px)}
+
+  /* BADGE */
+  .bdg{display:inline-block;padding:3px 11px;border-radius:20px;font-size:10.5px;font-weight:600}
+  .bdg-pk{background:#fce4ec;color:#ad1457;border:.5px solid #f48fb1}
+  .bdg-dk{background:#c2185b;color:#fff}
+  .bdg-gr{background:#e8f5e9;color:#2e7d32}
+  .bdg-or{background:#fff3e0;color:#e65100}
+
+  /* DL */
+  .dli{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;background:#fff;border:1px solid #f8bbd0;border-radius:11px;margin-bottom:8px;transition:.18s}
+  .dli:hover{border-color:#f48fb1;background:#fff5f8}
+  .dli-info{display:flex;align-items:center;gap:11px}
+  .dli-ico{width:38px;height:38px;background:#fce4ec;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#e91e8c;font-size:18px}
+  .dli-n{font-size:13px;font-weight:600;color:#3b0025}
+  .dli-s{font-size:11px;color:#f48fb1;margin-top:2px}
+  .dli-btn{background:#fce4ec;color:#e91e8c;border:1px solid #f48fb1;border-radius:8px;padding:5px 12px;cursor:pointer;font-size:12px;font-weight:600;transition:.18s;display:flex;align-items:center;gap:4px}
+  .dli-btn:hover{background:#e91e8c;color:#fff}
+
+  /* KALENDER */
+  .cal{border:1px solid #f48fb1;border-radius:14px;overflow:hidden}
+  .cal-hd{background:linear-gradient(90deg,#c2185b,#e91e8c);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:14px}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+  .cal-dh{text-align:center;padding:7px 4px;font-size:11px;color:#ad1457;background:#fce4ec;font-weight:700}
+  .cal-d{text-align:center;padding:7px 4px;font-size:12px;color:#3b0025;cursor:pointer;border:.5px solid #fce4ec;background:#fff;min-height:34px;display:flex;align-items:center;justify-content:center;transition:.15s}
+  .cal-d:hover{background:#fce4ec}
+  .cal-d.ev{background:#fce4ec;color:#e91e8c;font-weight:700;border-radius:4px}
+  .cal-d.td{background:#e91e8c;color:#fff;border-radius:6px;font-weight:700}
+  .cal-d.emp{background:#fff8fb}
+  .ev-list{margin-top:12px}
+  .ev-i{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;margin-bottom:7px;background:#fff;border:1px solid #f8bbd0;transition:.18s}
+  .ev-i:hover{border-color:#f48fb1;background:#fff5f8}
+  .ev-dt{min-width:44px;text-align:center;background:linear-gradient(135deg,#e91e8c,#c2185b);color:#fff;border-radius:8px;padding:5px 4px}
+  .ev-dt .d{font-size:17px;font-weight:700;line-height:1}
+  .ev-dt .m{font-size:9px;opacity:.9;margin-top:2px}
+  .ev-det h5{font-size:13px;color:#ad1457;font-weight:600}
+  .ev-det p{font-size:11px;color:#880e4f;margin-top:2px}
+
+  /* CURHAT */
+  .curhat-b{border:2px dashed #f48fb1;border-radius:14px;padding:18px;background:linear-gradient(135deg,#fff,#fff5f8)}
+  .succ{background:linear-gradient(135deg,#fce4ec,#f8bbd0);color:#880e4f;border-radius:10px;padding:12px;font-size:13px;text-align:center;margin-top:10px;display:none;font-weight:500}
+
+  /* GRID helpers */
+  .g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+
+  /* FOTO ANGKATAN */
+  .foto-agt{background:linear-gradient(135deg,#c2185b,#e91e8c,#f06292);border-radius:18px;padding:24px;text-align:center;color:#fff;margin-bottom:16px;position:relative;overflow:hidden}
+  .foto-frame{width:100%;height:160px;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:14px 0;border:2px dashed rgba(255,255,255,.4);font-size:48px;backdrop-filter:blur(2px)}
+  .fa-grid{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+  .fa-ava{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700;border:2px solid rgba(255,255,255,.4)}
+
+  /* Angka murid display */
+  .num-row{display:flex;justify-content:center;gap:12px;margin-top:12px}
+  .num-box{background:rgba(255,255,255,.18);border-radius:10px;padding:8px 16px;text-align:center}
+  .num-big{font-size:26px;font-weight:800;line-height:1}
+  .num-sm{font-size:10px;opacity:.85}
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="nav-brand">
+      <div class="nav-brand-icon">c:\Users\User\Downloads\WhatsApp Image 2026-08-06 at 20.30.33.jpeguk</div>
+      <div>
+        <div class="nav-brand-text">XI-3 Saintek-1 Digital</div>
+        <div class="nav-brand-sub">SMA · T.A. 2026/2027 · Portal Resmi Kelas</div>
+      </div>
+    </div>
+    <div class="nav-menu" role="tablist">
+      <button class="nav-btn on" onclick="goPg('beranda',this)">🏠 Beranda</button>
+      <button class="nav-btn" onclick="goPg('profil',this)">👥 Profil</button>
+      <button class="nav-btn" onclick="goPg('akademik',this)">📚 Akademik</button>
+      <button class="nav-btn" onclick="goPg('mading',this)">📌 Mading</button>
+      <button class="nav-btn" onclick="goPg('prestasi',this)">🏆 Prestasi</button>
+      <button class="nav-btn" onclick="goPg('curhat',this)">💌 Curhat</button>
+      <button class="nav-btn" onclick="goPg('inventaris',this)">📋 Inventaris</button>
+      <button class="nav-btn" onclick="goPg('kontak',this)">📞 Kontak</button>
+      <button class="nav-btn" onclick="goPg('downloads',this)">⬇️ Downloads</button>
+    </div>
+  </div>
+
+  <!-- ===== BERANDA ===== -->
+  <div id="pg-beranda" class="pg on">
+    <div class="hero">
+      <div class="hero-tag">🌸 PORTAL RESMI KELAS 🌸</div>
+      <h1>XI-3 Saintek-1 Digital</h1>
+      <p>MAn Negeri 2 Deli serdang · Tahun Ajaran 2026/2027 · Generasi Emas Indonesia</p>
+      <div class="stats">
+        <div class="stat"><div class="stat-n">36</div><div class="stat-l">Murid</div></div>
+        <div class="stat"><div class="stat-n">16</div><div class="stat-l">Guru & Mapel</div></div>
+        <div class="stat"><div class="stat-n">A+</div><div class="stat-l">Akreditasi</div></div>
+        <div class="stat"><div class="stat-n">🥇</div><div class="stat-l">Kelas Terbaik</div></div>
+      </div>
+    </div>
+
+    <!-- Carousel 16 Guru & Mapel -->
+    <div class="sec"><i class="ti ti-carousel-horizontal"></i> Guru & Mata Pelajaran (16)</div>
+    <div class="carousel-wrap" id="CW">
+      <div class="car-track" id="CT"></div>
+      <button class="car-arrow l" onclick="mvCar(-1)"><i class="ti ti-chevron-left"></i></button>
+      <button class="car-arrow r" onclick="mvCar(1)"><i class="ti ti-chevron-right"></i></button>
+    </div>
+    <div class="car-dots" id="CD"></div>
+
+    <!-- Tree View -->
+    <div class="sec" style="margin-top:18px"><i class="ti ti-list-tree"></i> Struktur Kelas</div>
+    <div class="card tree">
+      <ul>
+        <li>
+          <div class="tn" onclick="togT(this)"><span class="tgl">▶</span><i class="ti ti-school"></i><strong>XI-3 Saintek-1 Digital</strong></div>
+          <ul class="tch">
+            <li>
+              <div class="tn" onclick="togT(this)"><span class="tgl">▶</span><i class="ti ti-crown"></i> Pengurus Kelas</div>
+              <ul class="tch">
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-star"></i> Ketua: MUHAMMAD RIDWAN NASUTION .</div></li>
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-pencil"></i> Sekretaris I: NUR ASIFA.</div></li>
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-pencil"></i> Sekretaris II: TAUFIKIA ALFISYAHRI AL-BINTARI .</div></li>
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-coin"></i> Bendahara I: PUTRI ADKIA.</div></li>
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-coin"></i> Bendahara II: THAHIRA SABITA SALMAN S.</div></li>
+              </ul>
+            </li>
+            <li>
+              <div class="tn" onclick="togT(this)"><span class="tgl">▶</span><i class="ti ti-users"></i> Anggota (36 Siswa)</div>
+              <ul class="tch">
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-user"></i> Kelompok Belajar A (9 siswa)</div></li>
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-user"></i> Kelompok Belajar B (9 siswa)</div></li>
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-user"></i> Kelompok Belajar C (9 siswa)</div></li>
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-user"></i> Kelompok Belajar D (9 siswa)</div></li>
+              </ul>
+            </li>
+            <li>
+              <div class="tn" onclick="togT(this)"><span class="tgl">▶</span><i class="ti ti-book"></i> Program Saintek-1</div>
+              <ul class="tch">
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-atom"></i> MatemaTIKA WAJIB & MATEMATIKA TINGKAT LANJUT</div></li>
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-flask"></i> Fisika & Kimia </div></li>
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-dna"></i> Biologi & BAHASA INGGRIS</div></li>
+                <li><div class="tn"><span class="tgl"></span><i class="ti ti-device-laptop"></i> Informatika Digital</div></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Quote -->
+    <div class="quote">"Saintek-1 Digital bukan sekadar nama — ini adalah identitas. Kami belajar dengan logika, bertumbuh dengan empati, dan berkarya untuk dunia yang lebih baik."<cite>— Wali Kelas XI-3 Saintek-1, Ibu Prof. Dewi Anggraini, M.Sc.</cite></div>
+
+    <!-- Sambutan Accordion -->
+    <div class="sec"><i class="ti ti-message-heart"></i> Sambutan & Misi Kelas</div>
+    <div class="acc">
+      <button class="acc-h" onclick="togAcc(this)">💌 Sambutan Wali Kelas <span class="acc-arr">▼</span></button>
+      <div class="acc-b">
+        <p>Assalamualaikum Wr. Wb. Salam sejahtera untuk seluruh keluarga besar XI-3 Saintek-1 Digital. Dengan bangga, saya mempersembahkan portal digital kelas kita sebagai ruang berkarya, berbagi, dan bertumbuh bersama. Kelas ini adalah miniatur kehidupan — tempat kalian belajar ilmu sains dan teknologi sekaligus ilmu kehidupan. Mari kita jaga kebersamaan, tingkatkan prestasi, dan jadikan nama Saintek-1 Digital sebagai kebanggaan sekolah kita. Tetap semangat, inovatif, dan terus bersinar! 🌸</p>
+      </div>
+    </div>
+    <div class="acc">
+      <button class="acc-h" onclick="togAcc(this)">🎯 Misi Kelas <span class="acc-arr">▼</span></button>
+      <div class="acc-b">
+        <ul>
+          <li>Membangun budaya belajar aktif, kritis, dan inovatif berbasis sains dan teknologi</li>
+          <li>Mengembangkan potensi digital siswa melalui program literasi dan coding</li>
+          <li>Menciptakan lingkungan kelas yang inklusif, nyaman, dan bebas perundungan</li>
+          <li>Aktif berprestasi di bidang olimpiade, lomba ilmiah, dan seni budaya</li>
+          <li>Menjaga kebersihan, kerapian, dan inventaris kelas secara berkelanjutan</li>
+          <li>Mempererat silaturahmi melalui kegiatan rutin dan program kelas digital</li>
+        </ul>
+      </div>
+    </div>
+    <div class="acc">
+      <button class="acc-h" onclick="togAcc(this)">📅 Agenda Kelas Terdekat <span class="acc-arr">▼</span></button>
+      <div class="acc-b">
+        <div class="ev-list">
+          <div class="ev-i"><div class="ev-dt"><div class="d">12</div><div class="m">AGT</div></div><div class="ev-det"><h5>Ulangan Matematika Tingkat lanjut</h5><p>Bab Limit & Turunan — 2 jam pelajaran</p></div></div>
+          <div class="ev-i"><div class="ev-dt"><div class="d">18</div><div class="m">AGT</div></div><div class="ev-det"><h5>UTS Semester Ganjil</h5><p>Seluruh mata pelajaran · 5 hari</p></div></div>
+          <div class="ev-i"><div class="ev-dt"><div class="d">25</div><div class="m">AGT</div></div><div class="ev-det"><h5>Pensi Kelas XI-3</h5><p>Aula Utama, pk. 19.00 WIB</p></div></div>
+          <div class="ev-i"><div class="ev-dt"><div class="d">02</div><div class="m">SEP</div></div><div class="ev-det"><h5>Studi Tur ke ITB Bandung</h5><p>3 hari 2 malam — daftar ke bendahara</p></div></div>
+          <div class="ev-i"><div class="ev-dt"><div class="d">10</div><div class="m">SEP</div></div><div class="ev-det"><h5>Kerja Bakti & Dekorasi Kelas</h5><p>Tema: Saintek Digital — semua wajib hadir</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rating -->
+    <div class="card" style="margin-top:2px">
+      <div style="font-size:13px;color:#880e4f;font-weight:600;margin-bottom:10px">⭐ Bagaimana suasana kelas hari ini?</div>
+      <div class="stars" id="r1">
+        <button class="st" onclick="setR('r1',1,'r1l')">★</button>
+        <button class="st" onclick="setR('r1',2,'r1l')">★</button>
+        <button class="st" onclick="setR('r1',3,'r1l')">★</button>
+        <button class="st" onclick="setR('r1',4,'r1l')">★</button>
+        <button class="st" onclick="setR('r1',5,'r1l')">★</button>
+        <span class="r-lbl" id="r1l">Beri penilaian</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PROFIL ===== -->
+  <div id="pg-profil" class="pg">
+    <!-- Foto angkatan -->
+    <div class="foto-agt">
+      <div style="font-size:12px;opacity:.8;letter-spacing:.5px;margin-bottom:4px"> c:\Users\User\Downloads\motion_photo_5479653393146235477.jpg.jpeg</div>
+      <div style="font-size:20px;font-weight:700">XI-3 Saintek-1 Digital</div>
+      <div class="foto-frame">c: c:\Users\User\Downloads\motion_photo_5479653393146235477.jpg.jpe\Users\User\Downloads\motion_photo_5479653393146235477.jpg.jpe<br><span style="font-size:13px;margin-top:8px;display:block;opacity:.7">Upload Foto Bersama Kelas</span></div>
+     <div class=c:\Users\User\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\LocalState\sessions\C5A87C6589DA6EE969AC26672BFBACFB87400716\transfers\2026-32\motion_photo_5479653393146235477.jpg.jpeg\Users\n style="font-size:13px;margin-top:8px;display:block;opacity:.7"> </span></div>
+      <div class="num-row">
+        <div class="num-box"><div class="num-big">36</div><div class="num-sm">Murid</div></div>
+        <div class="num-box"><div class="num-big">20</div><div class="num-sm">Siswi</div></div>
+        <div class="num-box"><div class="num-big">16</div><div class="num-sm">Siswa</div></div>
+        <div class="num-box"><div class="num-big">2025</div><div class="num-sm">Lulus</div></div>
+      </div>
+    </div>
+
+    <!-- Pengurus dengan Popover -->
+    <div class="sec"><i class="ti ti-id-badge-2"></i> Pengurus Kelas 2024/2025</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+      <div class="pop-w">
+        <button class="pop-btn" onclick="togPop('pp1')"><i class="ti ti-crown"></i> Ketua Kelas</button>
+        <div class="pop" id="pp1">
+          <h4>👑 Alfarizky Naufal</h4><hr class="pop-divider">
+          <p>Absen No. 02 · Siswa berprestasi<br>📱 0812-xxxx-1234<br>📧 alfa@saintek1.id<br><br><em>"Bersama kita wujudkan impian!"</em></p>
+        </div>
+      </div>
+      <div class="pop-w">
+        <button class="pop-btn" onclick="togPop('pp2')"><i class="ti ti-pencil"></i> Sekretaris I</button>
+        <div class="pop" id="pp2">
+          <h4>📝 Bella Azzahra</h4><hr class="pop-divider">
+          <p>Absen No. 05 · Ahli administrasi<br>📱 0813-xxxx-5678<br><br><em>"Tertib, rapi, dan tepat waktu!"</em></p>
+        </div>
+      </div>
+      <div class="pop-w">
+        <button class="pop-btn" onclick="togPop('pp3')"><i class="ti ti-pencil"></i> Sekretaris II</button>
+        <div class="pop" id="pp3">
+          <h4>📝 Callista Ramadhanti</h4><hr class="pop-divider">
+          <p>Absen No. 07 · Notulensi & arsip<br>📱 0857-xxxx-9012<br><br><em>"Setiap kata tercatat, setiap momen berarti!"</em></p>
+        </div>
+      </div>
+      <div class="pop-w">
+        <button class="pop-btn" onclick="togPop('pp4')"><i class="ti ti-coin"></i> Bendahara I</button>
+        <div class="pop" id="pp4">
+          <h4>💰 Devano Mahardika</h4><hr class="pop-divider">
+          <p>Absen No. 09 · Pengelola kas utama<br>📱 0821-xxxx-3456<br><br><em>"Kas aman, kelas nyaman!"</em></p>
+        </div>
+      </div>
+      <div class="pop-w">
+        <button class="pop-btn" onclick="togPop('pp5')"><i class="ti ti-coin"></i> Bendahara II</button>
+        <div class="pop" id="pp5">
+          <h4>💰 Erlita Safira</h4><hr class="pop-divider">
+          <p>Absen No. 11 · Kasir & laporan keuangan<br>📱 0858-xxxx-7890<br><br><em>"Transparan dan akuntabel!"</em></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visi -->
+    <div class="quote">"Menjadi kelas unggulan yang melahirkan generasi saintis digital berkarakter, berjiwa inovatif, dan berdampak positif bagi masyarakat dan bangsa Indonesia."<cite>— Visi XI-3 Saintek-1 Digital 2024/2025</cite></div>
+
+    <!-- Daftar Siswa + Pagination -->
+    <div class="sec"><i class="ti ti-users"></i> Daftar 36 Murid <span class="bdg bdg-dk" style="margin-left:6px">Klik kartu untuk info</span></div>
+    <div class="sg" id="swGrid"></div>
+    <div class="pag" id="swPag"></div>
+  </div>
+
+  <!-- ===== AKADEMIK ===== -->
+  <div id="pg-akademik" class="pg">
+    <div class="tab-list" role="tablist">
+      <button class="tab-b on" onclick="goTab('ak','jadwal',this)">📅 Jadwal Mingguan</button>
+      <button class="tab-b" onclick="goTab('ak','ujian',this)">📝 Jadwal Ujian</button>
+      <button class="tab-b" onclick="goTab('ak','guru',this)">👩‍🏫 Semua Guru</button>
+      <button class="tab-b" onclick="goTab('ak','galeri',this)">🖼️ Galeri</button>
+    </div>
+
+    <div class="tab-pane on" id="ak-jadwal">
+      <div class="sec"><i class="ti ti-calendar-week"></i> Jadwal Pelajaran Mingguan</div>
+      <div style="overflow-x:auto">
+        <table class="jt">
+          <thead><tr><th>Jam</th><th>Senin</th><th>Selasa</th><th>Rabu</th><th>Kamis</th><th>Jumat</th>SABTU</th></thead>
+          <tbody>
+            <tr><td class="jam">07.00–08.30</td><td>Mat. Wajib</td><td>Fisika</td><td> BAHASA ARAB</td><td>BAHASA ARAB</td><td>SEJARAH KEBUDAYAAN ISLAM</td></tr>
+            <tr><td class="jam">08.30–10.00</td><td>Kimia</td><td>B. Indonesia</td><td>PENDIDIKAN PANCASILA</atd><td>PENDIDIKAN PANCASILA</td><td> SEJARAH</td></tr>
+            <tr><td class="jam" colspan="6" style="text-align:center;background:#fce4ec;color:#e91e8c;font-style:italic">☕ Istirahat 1 · 09.45 – 10.00</td></tr>
+            <tr><td class="jam">10.20–11.50</td><td>B. Inggris</td><td></td><td>B. Inggris</td><td>Informatika</td><td>PJOK</td></tr>
+            <tr><td class="jam">11.50–12.10</td><td colspan="5" style="text-align:center;background:#fce4ec;color:#e91e8c;font-style:italic">🕐 Ishoma 12.15 - 13.00</td></tr>
+            <tr><td class="jam">12.10–13.40</td><td>Biologi</td><td>Seni Budaya</td><td>Sejarah</td><td>PKN</td><td>B. Indonesia</td></tr>
+            <tr><td class="jam">13.40–14.30</td><td>Agama</td><td>Biologi</td><td>BK</td><td>Sejarah</td><td>Ekskul / Bebas</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <span class="bdg bdg-pk">📐 Matematika 6 jp/minggu</span>
+        <span class="bdg bdg-pk">⚗️ Sains 8 jp/minggu</span>
+        <span class="bdg bdg-pk">💻 Informatika 2 jp/minggu</span>
+        <span class="bdg bdg-pk">🌐 Bahasa 6 jp/minggu</span>
+      </div>
+    </div>
+
+    <div class="tab-pane" id="ak-ujian">
+      <div class="sec"><i class="ti ti-pencil"></i> Jadwal Ujian & Tugas Harian</div>
+      <div id="ujianList"></div>
+      <div class="pag" id="ujianPag"></div>
+    </div>
+
+    <div class="tab-pane" id="ak-guru">
+      <div class="sec"><i class="ti ti-school"></i> 16 Guru & Mata Pelajaran</div>
+      <div id="guruAccContainer"></div>
+    </div>
+
+    <div class="tab-pane" id="ak-galeri">
+      <div class="sec"><i class="ti ti-photo"></i> Galeri Akademik</div>
+      <div class="mg">
+        <div class="mc"><div class="mi" style="background:#fce4ec">🔬</div><div class="mb"><h4>Praktikum Kimia</h4><p>Titrasi asam basa di lab</p><span class="tag">Juli 2024</span></div></div>
+        <div class="mc"><div class="mi" style="background:#e8f5e9">⚡</div><div class="mb"><h4>Praktikum Fisika</h4><p>Rangkaian listrik DC</p><span class="tag">Juni 2024</span></div></div>
+        <div class="mc"><div class="mi" style="background:#e3f2fd">🧬</div><div class="mb"><h4>Lab Biologi</h4><p>Pengamatan sel bawang</p><span class="tag">Mei 2024</span></div></div>
+        <div class="mc"><div class="mi" style="background:#f3e5f5">💻</div><div class="mb"><h4>Coding Session</h4><p>Project informatika kelas</p><span class="tag">Agt 2024</span></div></div>
+        <div class="mc"><div class="mi" style="background:#fff3e0">📐</div><div class="mb"><h4>Kompetisi Matematika</h4><p>OSN tingkat kota</p><span class="tag">Juli 2024</span></div></div>
+        <div class="mc"><div class="mi" style="background:#fce4ec">📊</div><div class="mb"><h4>Presentasi Proyek</h4><p>STEM Project Exhibition</p><span class="tag">Jun 2024</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MADING ===== -->
+  <div id="pg-mading" class="pg">
+    <div class="sec"><i class="ti ti-pinned"></i> Mading Digital XI-3 Saintek-1</div>
+    <div class="quote">"Setiap kegiatan adalah kenangan. Setiap foto adalah cerita yang layak dikenang selamanya."</div>
+    <div style="margin-top:12px">
+      <div class="tab-list">
+        <button class="tab-b on" onclick="goTab('md','semua',this)">🌟 Semua</button>
+        <button class="tab-b" onclick="goTab('md','studi',this)">🚌 Studi Tur</button>
+        <button class="tab-b" onclick="goTab('md','pensi',this)">🎭 Pensi</button>
+        <button class="tab-b" onclick="goTab('md','sosial',this)">🧹 Sosial</button>
+      </div>
+      <div class="tab-pane on" id="md-semua">
+        <div class="mg" style="margin-top:4px">
+          <div class="mc"><div class="mi" style="background:#fce4ec">🚌</div><div class="mb"><h4>Studi TUr</h4><p>Ma.!</p><span class="tag">Studi Tur · Sep 2024</span></div></div>
+          <div class="mc"><div class="mi" style="background:#f3e5f5">🎭</div><div class="mb"><h4>Pentas Seni Kelas</h4><p>Drama, tari modern, dan band akustik memukau penonton</p><span class="tag">Pensi · Agt 2024</span></div></div>
+          <div class="mc"><div class="mi" style="background:#e8f5e9">🧹</div><div class="mb"><h4>Kerja Bakti Kelas</h4><p>Gotong royong mencat dan mendekorasi ulang kelas</p><span class="tag">Sosial · Jul 2024</span></div></div>
+          <div class="mc"><div class="mi" style="background:#fff3e0">🎉</div><div class="mb"><h4>Pesta Ulang Tahun Kelas</h4><p>Rayakan ultah teman bersama setiap bulan dengan penuh cinta</p><span class="tag">Perayaan · Rutin</span></div></div>
+          <div class="mc"><div class="mi" style="background:#e3f2fd">🏃</div><div class="mb"><h4>Hari Olahraga Nasional</h4><p>Lomba antar kelas: voli, futsal, badminton — kita juara!</p><span class="tag">Olahraga · Sep 2024</span></div></div>
+          <div class="mc"><div class="mi" style="background:#fce4ec">🌱</div><div class="mb"><h4>Program Hijau Kelas</h4><p>Menanam tanaman di pot kelas sebagai program go-green</p><span class="tag">Lingkungan · Jun 2024</span></div></div>
+          <div class="mc"><div class="mi" style="background:#f3e5f5">📚</div><div class="mb"><h4>Bazar Buku Pojok Baca</h4><p>Tukar buku, tambah wawasan bersama</p><span class="tag">Literasi · Mei 2024</span></div></div>
+          <div class="mc"><div class="mi" style="background:#e8f5e9">🍱</div><div class="mb"><h4>Festival Kuliner Kelas</h4><p>Masak dan makan bersama — menu nusantara terfavorit</p><span class="tag">Kuliner · Apr 2024</span></div></div>
+          <div class="mc"><div class="mi" style="background:#fff3e0">🎤</div><div class="mb"><h4>Debat Antar Kelas</h4><p>XI-3 raih juara 1 lomba debat B. Inggris tingkat sekolah</p><span class="tag">Prestasi · Mar 2024</span></div></div>
+        </div>
+      </div>
+      <div class="tab-pane" id="md-studi"><div class="mg" style="margin-top:4px"><div class="mc"><div class="mi" style="background:#fce4ec">🚌</div><div class="mb"><h4>Studi Tur ITB Bandung</h4><p>3 hari 2 malam menjelajahi kampus STEM terbaik</p><span class="tag">Sep 2024</span></div></div><div class="mc"><div class="mi" style="background:#e3f2fd">🔭</div><div class="mb"><h4>Kunjungan Planetarium</h4><p>Melihat langit malam dari sudut pandang ilmiah</p><span class="tag">Mei 2024</span></div></div><div class="mc"><div class="mi" style="background:#e8f5e9">🏭</div><div class="mb"><h4>Kunjungan Industri</h4><p>PT Bio Farma — melihat proses produksi vaksin</p><span class="tag">Feb 2024</span></div></div></div></div>
+      <div class="tab-pane" id="md-pensi"><div class="mg" style="margin-top:4px"><div class="mc"><div class="mi" style="background:#f3e5f5">🎭</div><div class="mb"><h4>Drama "Mimpi Saintis"</h4><p>Naskah dan sutradara dari siswa XI-3 sendiri</p><span class="tag">Agt 2024</span></div></div><div class="mc"><div class="mi" style="background:#fce4ec">🎵</div><div class="mb"><h4>Band Akustik Kelas</h4><p>5 lagu original karya siswa membuka pensi tahun ini</p><span class="tag">Agt 2024</span></div></div></div></div>
+      <div class="tab-pane" id="md-sosial"><div class="mg" style="margin-top:4px"><div class="mc"><div class="mi" style="background:#e8f5e9">🧹</div><div class="mb"><h4>Kerja Bakti Kelas</h4><p>Gotong royong setiap akhir semester</p><span class="tag">Jul 2024</span></div></div><div class="mc"><div class="mi" style="background:#fce4ec">🌱</div><div class="mb"><h4>Go Green Kelas</h4><p>Tanam, siram, dan rawat bersama</p><span class="tag">Jun 2024</span></div></div></div></div>
+    </div>
+  </div>
+
+  <!-- ===== PRESTASI ===== -->
+  <div id="pg-prestasi" class="pg">
+    <div class="quote">"Setiap medali yang kami raih adalah bukti kerja keras tanpa henti. Saintek-1 Digital — lahir untuk berprestasi!"<cite>— Moto Prestasi XI-3 Saintek-1</cite></div>
+
+    <div class="sec" style="margin-top:14px"><i class="ti ti-trophy"></i> Piala & Penghargaan</div>
+    <div class="pg-grid">
+      <div class="pgc"><div class="ico">🥇</div><h4>Juara 1 OSN Matematika</h4><p>Tingkat Kota 2024</p><div style="margin-top:7px"><span class="bdg bdg-dk">Terverifikasi ✅</span></div></div>
+      <div class="pgc"><div class="ico">🥈</div><h4>Juara 2 OSN Fisika</h4><p>Tingkat Provinsi 2024</p><div style="margin-top:7px"><span class="bdg bdg-dk">Terverifikasi ✅</span></div></div>
+      <div class="pgc"><div class="ico">🥉</div><h4>Juara 3 OSN Kimia</h4><p>Tingkat Nasional 2024</p><div style="margin-top:7px"><span class="bdg bdg-dk">Terverifikasi ✅</span></div></div>
+      <div class="pgc"><div class="ico">🏆</div><h4>Juara 1 Debat B. Inggris</h4><p>Antar SMA Kota 2024</p><div style="margin-top:7px"><span class="bdg bdg-pk">Piagam 📜</span></div></div>
+      <div class="pgc"><div class="ico">🎨</div><h4>Juara 1 Poster Sains</h4><p>Pameran STEM Nasional</p><div style="margin-top:7px"><span class="bdg bdg-pk">Piagam 📜</span></div></div>
+      <div class="pgc"><div class="ico">🌟</div><h4>Kelas Terfavorit</h4><p>Voting Sekolah 2024</p><div style="margin-top:7px"><span class="bdg bdg-pk">Populer 💕</span></div></div>
+    </div>
+
+    <!-- Karya Siswa Accordion -->
+    <div class="sec" style="margin-top:18px"><i class="ti ti-writing"></i> Karya & Kreasi Siswa</div>
+    <div class="acc">
+      <button class="acc-h" onclick="togAcc(this)">✍️ Puisi — "Saintis Muda Nusantara" oleh Alfarizky N. <span class="acc-arr">▼</span></button>
+      <div class="acc-b">
+        <div class="quote" style="font-size:13.5px;line-height:2">Kami datang dengan segudang mimpi,<br>Membawa rumus dan formula tinggi,<br>Laboratorium adalah rumah kami,<br>Data dan logika sahabat setia.<br><br>Saintek-1 Digital — kami di sini,<br>Bukan sekadar angka dan teori,<br>Tapi jiwa yang penuh empati,<br>Untuk Indonesia yang lebih berarti.<cite>— Alfarizky Naufal, XI-3 Saintek-1</cite></div>
+      </div>
+    </div>
+    <div class="acc">
+      <button class="acc-h" onclick="togAcc(this)">💻 Project Digital — Website Kalkulasi Kimia oleh Devano M. <span class="acc-arr">▼</span></button>
+      <div class="acc-b">
+        <div style="background:linear-gradient(135deg,#e8f5e9,#fff);border-radius:10px;padding:14px;border:.5px solid #c8e6c9">
+          <p><strong>Deskripsi:</strong> Aplikasi web untuk menghitung massa molar, konsentrasi larutan, dan stoikiometri reaksi kimia secara otomatis.</p>
+          <p style="margin-top:8px"><strong>Teknologi:</strong> HTML, CSS, JavaScript vanilla</p>
+          <p style="margin-top:6px"><strong>Status:</strong> <span class="bdg bdg-gr">Sudah dipublikasi ✅</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="acc">
+      <button class="acc-h" onclick="togAcc(this)">🎨 Karya Seni Digital — "Galaksi Sains" oleh Bella A. <span class="acc-arr">▼</span></button>
+      <div class="acc-b">
+        <div style="background:linear-gradient(135deg,#f3e5f5,#fce4ec);border-radius:10px;height:130px;display:flex;align-items:center;justify-content:center;font-size:50px">🌌🔭✨</div>
+        <p style="margin-top:10px">Lukisan digital bertema alam semesta dan ilmu pengetahuan. Menampilkan bintang-bintang berbentuk rumus sains — simbol bahwa ilmu dan keindahan berjalan berdampingan.</p>
+      </div>
+    </div>
+
+    <!-- Rating karya -->
+    <div class="card" style="margin-top:8px">
+      <div style="font-size:13px;font-weight:600;color:#880e4f;margin-bottom:9px">Nilai karya terbaik XI-3 hari ini:</div>
+      <div class="stars" id="r2">
+        <button class="st" onclick="setR('r2',1,'r2l')">★</button>
+        <button class="st" onclick="setR('r2',2,'r2l')">★</button>
+        <button class="st" onclick="setR('r2',3,'r2l')">★</button>
+        <button class="st" onclick="setR('r2',4,'r2l')">★</button>
+        <button class="st" onclick="setR('r2',5,'r2l')">★</button>
+        <span class="r-lbl" id="r2l">Beri nilai</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CURHAT ===== -->
+  <div id="pg-curhat" class="pg">
+    <div class="sec"><i class="ti ti-heart"></i> Sudut Curhat & Saran</div>
+    <div class="quote">"Setiap suara berharga. Tidak ada masalah yang terlalu kecil untuk disampaikan. Pengurus kelas siap mendengar dengan tulus dan rahasia."</div>
+
+    <div class="curhat-b" style="margin-top:14px">
+      <div style="font-size:14px;font-weight:700;color:#c2185b;margin-bottom:14px;display:flex;align-items:center;gap:8px"><i class="ti ti-lock"></i> Kotak Aspirasi Anonim — Identitasmu Terjaga</div>
+      <div class="fg">
+        <label class="fl">Pilih Kategori</label>
+        <select class="fi" style="cursor:pointer">
+          <option>💬 Saran untuk Pengurus Kelas</option>
+          <option>📚 Masukan Akademik & Belajar</option>
+          <option>🏫 Saran Fasilitas & Kebersihan</option>
+          <option>❤️ Curhat Perasaan & Pergaulan</option>
+          <option>🎉 Ide Kegiatan Kelas Baru</option>
+          <option>⚠️ Laporan Masalah Serius</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="fl">Tingkat Kepentingan</label>
+        <div class="stars" id="r3">
+          <button class="st" onclick="setR('r3',1,'r3l')">★</button>
+          <button class="st" onclick="setR('r3',2,'r3l')">★</button>
+          <button class="st" onclick="setR('r3',3,'r3l')">★</button>
+          <button class="st" onclick="setR('r3',4,'r3l')">★</button>
+          <button class="st" onclick="setR('r3',5,'r3l')">★</button>
+          <span class="r-lbl" id="r3l">1 = biasa, 5 = sangat penting</span>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">Pesan Aspirasimu (anonim, tidak ada nama yang ditampilkan)</label>
+        <textarea class="fi" rows="5" placeholder="Tulis aspirasimu dengan bebas dan jujur di sini. Semua pesan akan dibaca dengan serius oleh pengurus kelas. Identitasmu 100% terlindungi."></textarea>
+      </div>
+      <button class="btn-pk" style="width:100%" onclick="kirimC()">💌 Kirim Aspirasi Anonim</button>
+      <div class="succ" id="cSucc">✅ Aspirasimu berhasil terkirim! Pengurus kelas akan segera menindaklanjuti. Terima kasih sudah berani bersuara! 🌸</div>
+    </div>
+
+    <div class="sec" style="margin-top:18px"><i class="ti ti-message-dots"></i> Saran Terbaru (Sudah Ditindaklanjuti)</div>
+    <div class="acc">
+      <button class="acc-h" onclick="togAcc(this)">💬 Saran Pengurus — 2 hari lalu · ⭐⭐⭐⭐ <span class="acc-arr">▼</span></button>
+      <div class="acc-b"><p>"Jadwal piket kebersihan tolong ditempel jelas di papan kelas dan diingatkan tiap pagi agar kelas selalu bersih."</p><div style="margin-top:8px"><span class="bdg bdg-gr">✅ Sudah ditindaklanjuti</span><p style="font-size:11px;color:#388e3c;margin-top:5px">Respons: Jadwal piket sudah diperbarui dan ditempel di papan utama. Terima kasih sarannya!</p></div></div>
+    </div>
+    <div class="acc">
+      <button class="acc-h" onclick="togAcc(this)">🎉 Ide Kegiatan — 1 minggu lalu · ⭐⭐⭐⭐⭐ <span class="acc-arr">▼</span></button>
+      <div class="acc-b"><p>"Gimana kalau kita bikin hackathon mini kelas? Buat proyek digital bareng, nanti dipresentasikan ke guru. Pasti seru dan bermanfaat!"</p><div style="margin-top:8px"><span class="bdg bdg-or">🕐 Sedang dibahas pengurus</span></div></div>
+    </div>
+    <div class="acc">
+      <button class="acc-h" onclick="togAcc(this)">📚 Masukan Akademik — 5 hari lalu · ⭐⭐⭐ <span class="acc-arr">▼</span></button>
+      <div class="acc-b"><p>"Bisa minta jadwal belajar bareng sebelum UTS? Mungkin 3 kali seminggu di kelas atau tempat belajar bersama?"</p><div style="margin-top:8px"><span class="bdg bdg-gr">✅ Sudah ditindaklanjuti</span><p style="font-size:11px;color:#388e3c;margin-top:5px">Respons: Study group dijadwalkan Senin, Rabu, Jumat pukul 14.30 di kelas XI-3.</p></div></div>
+    </div>
+  </div>
+
+  <!-- ===== INVENTARIS ===== -->
+  <div id="pg-inventaris" class="pg">
+    <div class="sec"><i class="ti ti-list-check"></i> Inventaris Barang Kelas XI-3</div>
+    <div class="g3" style="margin-bottom:14px">
+      <div class="card" style="text-align:center;padding:12px"><div style="font-size:22px;font-weight:700;color:#43a047">10</div><div style="font-size:11px;color:#388e3c">Kondisi Baik ✅</div></div>
+      <div class="card" style="text-align:center;padding:12px"><div style="font-size:22px;font-weight:700;color:#fb8c00">2</div><div style="font-size:11px;color:#e65100">Perlu Perhatian ⚠️</div></div>
+      <div class="card" style="text-align:center;padding:12px"><div style="font-size:22px;font-weight:700;color:#e53935">1</div><div style="font-size:11px;color:#c62828">Perlu Diganti 🔴</div></div>
+    </div>
+    <div class="ig">
+      <div class="ic"><div class="ii">🧹</div><h4>Sapu Lantai</h4><p class="ok">2 buah · Baik ✅</p></div>
+      <div class="ic"><div class="ii">🖊️</div><h4>Spidol Papan</h4><p class="ok">2 set (1 warna) · Baik ✅</p></div>
+      <div class="ic"><div class="ii">🧽</div><h4>Alat Pel</h4><p class="ok">2 buah · Baik ✅</p></div>
+      <div class="ic"><div class="ii">🗑️</div><h4>Serokan Sampah</h4><p class="ok">2 buah · Baik ✅</p></div>
+      <div class="ic"><div class="ii">🪶</div><h4>Kemoceng</h4><p class="warn">1 buah · Perlu cuci ⚠️</p></div>
+      <div class="ic"><div class="ii">🧻</div><h4>Kain Lap</h4><p class="ok">3 lembar · Baik ✅</p></div>
+      <div class="ic"><div class="ii">⬛</div><h4>Papan Tulis</h4><p class="ok">1 buah · Baik ✅</p></div>
+      <div class="ic"><div class="ii">🪑</div><h4>Meja Siswa</h4><p class="ok">36 buah · Lengkap ✅</p></div>
+      <div class="ic"><div class="ii">🪑</div><h4>Kursi Siswa</h4><p class="ok">36 buah · Lengkap ✅</p></div>
+      <div class="ic"><div class="ii">📋</div><h4>Penghapus Papan</h4><p class="bad">2 buah · 1 perlu ganti 🔴</p></div>
+      <div class="ic"><div class="ii">📚</div><h4>Buku Pojok Baca</h4><p class="ok">0 judul · Lengkap ✅</p></div>
+      <div class="ic"><div class="ii">🪣</div><h4>Ember & Pel Set</h4><p class="warn">2 set · Perlu cek ⚠️</p></div>
+      <div class="ic"><div class="ii">🗑️</div><h4>Tempat Sampah</h4><p class="ok">1 buah (organik/non) ✅</p></div>
+    </div>
+    <div class="quote" style="margin-top:14px">"Kelas yang bersih mencerminkan karakter siswa yang bersih pula. Mari jaga bersama inventaris kelas kita!"<cite>— Seksi Kebersihan XI-3 Saintek-1</cite></div>
+  </div>
+
+  <!-- ===== KONTAK ===== -->
+  <div id="pg-kontak" class="pg">
+    <div class="sec"><i class="ti ti-address-book"></i> Hubungi Kelas XI-3 Saintek-1</div>
+    <div class="g2">
+      <div class="card">
+        <div style="font-size:14px;font-weight:700;color:#ad1457;margin-bottom:14px">📬 Kirim Pesan</div>
+        <div class="fg"><label class="fl">Nama Lengkap</label><input class="fi" type="text" placeholder="Nama kamu..."></div>
+        <div class="fg"><label class="fl">Email / WhatsApp</label><input class="fi" type="text" placeholder="email@contoh.com atau 08xx-xxxx"></div>
+        <div class="fg"><label class="fl">Keperluan</label>
+          <select class="fi" style="cursor:pointer"><option>Pertanyaan Umum</option><option>Kerjasama Kegiatan</option><option>Saran & Masukan</option><option>Lainnya</option></select>
+        </div>
+        <div class="fg"><label class="fl">Pesan</label><textarea class="fi" rows="4" placeholder="Tulis pesanmu..."></textarea></div>
+        <button class="btn-pk" onclick="kirimP()">Kirim Pesan 📨</button>
+        <div class="succ" id="pSucc">✅ Pesan terkirim! Kami akan segera merespons. Terima kasih!</div>
+      </div>
+      <div class="card">
+        <div style="font-size:14px;font-weight:700;color:#ad1457;margin-bottom:14px">📱 Kontak Resmi</div>
+        <button class="wa-btn">💬 +62 882-0151-53863 XI-3 Saintek-1</button>
+        <div style="margin-top:14px;border-top:.5px solid #fce4ec;padding-top:12px">
+          <div class="acc">
+            <button class="acc-h" onclick="togAcc(this)" style="font-size:12.5px">👩‍🏫 Wali Kelas <span class="acc-arr">▼</span></button>
+            <div class="acc-b"><p>Ibu Try ade jumita wulandari, M.pd.Gr<br>📱 +62 852-6089-2060<br>📧 try ade jumita wulandari@man2.sch.id<br>⏰ Senin–Jumat,–15.00</p></div>
+          </div>
+          <div class="acc">
+            <button class="acc-h" onclick="togAcc(this)" style="font-size:12.5px">👑 Pengurus Kelas <span class="acc-arr">▼</span></button>
+            <div class="acc-b">
+              <p>Ketua: MUhammad ridwan nasution · 0822-xxxx-6443</p>
+              <p style="margin-top:5px">Sekretaris: Nur asifa · 0857-xxxx-7027</p>
+              <p style="margin-top:5px">Bendahara: Putri adzkia · 0838-xxxx-5364</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px;background:#fce4ec;border-radius:10px;padding:11px;font-size:12px;color:#880e4f;line-height:1.8">
+          <strong>📍 Lokasi:</strong> Kawasan Pemerintahan, Jl. Lintas Sumatera, Tj. Garbus Satu, Kec. Lubuk Pakam, Kabupaten Deli Serdang, Sumatera Utara 20551<br>
+          <strong>⏰ Jam Aktif:</strong> 07.00 – 15.30 WIB<br>
+          <strong>📶 Instagram:</strong> @digisaint_one
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DOWNLOADS ===== -->
+  <div id="pg-downloads" class="pg">
+    <div class="sec"><i class="ti ti-download"></i> Pusat Unduhan — XI-3 Saintek-1</div>
+    <div class="tab-list">
+      <button class="tab-b on" onclick="goTab('dl','modul',this)">📚 Modul</button>
+      <button class="tab-b" onclick="goTab('dl','rangkuman',this)">📄 Rangkuman</button>
+      <button class="tab-b" onclick="goTab('dl','soal',this)">✏️ Bank Soal</button>
+      <button class="tab-b" onclick="goTab('dl','lain',this)">📎 Lainnya</button>
+    </div>
+
+    <div class="tab-pane on" id="dl-modul">
+      <div id="dlList" style="margin-top:6px"></div>
+      <div class="pag" id="dlPag"></div>
+    </div>
+    <div class="tab-pane" id="dl-rangkuman">
+      <div style="margin-top:6px" id="rnList"></div>
+    </div>
+    <div class="tab-pane" id="dl-soal">
+      <div style="margin-top:6px">
+        <div class="dli"><div class="dli-info"><div class="dli-ico"><i class="ti ti-pencil"></i></div><div><div class="dli-n">Bank Soal Matematika Peminatan 2024</div><div class="dli-s">PDF · 3.5 MB · 200 soal</div></div></div><button class="dli-btn"><i class="ti ti-download"></i> Unduh</button></div>
+        <div class="dli"><div class="dli-info"><div class="dli-ico"><i class="ti ti-pencil"></i></div><div><div class="dli-n">Latihan Soal OSN Fisika 2019-2023</div><div class="dli-s">PDF · 4.1 MB · 300 soal</div></div></div><button class="dli-btn"><i class="ti ti-download"></i> Unduh</button></div>
+        <div class="dli"><div class="dli-info"><div class="dli-ico"><i class="ti ti-pencil"></i></div><div><div class="dli-n">Latihan Soal OSN Kimia Lengkap</div><div class="dli-s">PDF · 2.8 MB · 250 soal</div></div></div><button class="dli-btn"><i class="ti ti-download"></i> Unduh</button></div>
+        <div class="dli"><div class="dli-info"><div class="dli-ico"><i class="ti ti-pencil"></i></div><div><div class="dli-n">Soal UTS Semester Ganjil (5 tahun)</div><div class="dli-s">PDF · 2.2 MB</div></div></div><button class="dli-btn"><i class="ti ti-download"></i> Unduh</button></div>
+      </div>
+    </div>
+    <div class="tab-pane" id="dl-lain">
+      <div style="margin-top:6px">
+        <div class="dli"><div class="dli-info"><div class="dli-ico"><i class="ti ti-file"></i></div><div><div class="dli-n">Template Laporan Praktikum Sains</div><div class="dli-s">DOCX · 45 KB</div></div></div><button class="dli-btn"><i class="ti ti-download"></i> Unduh</button></div>
+        <div class="dli"><div class="dli-info"><div class="dli-ico"><i class="ti ti-calendar"></i></div><div><div class="dli-n">Kalender Akademik 2024/2025</div><div class="dli-s">PDF · 1.1 MB</div></div></div><button class="dli-btn"><i class="ti ti-download"></i> Unduh</button></div>
+        <div class="dli"><div class="dli-info"><div class="dli-ico"><i class="ti ti-file-code"></i></div><div><div class="dli-n">Template Proyek Informatika Kelas</div><div class="dli-s">ZIP · 2.3 MB</div></div></div><button class="dli-btn"><i class="ti ti-download"></i> Unduh</button></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const MURID=[
+    "Adzka Rayi zhafira","AFIFAH MAAHIRAH","Al-fatir dewza","Annisa zakiyah a.","Arel alfachrizy",
+    "Azka huda adiwirya","Azkia inda maula","Azzkacky al-mirza","Beby al husna","Bunga amelia",
+    "Daim faeyza","Elderou ibni alvaro","Indri niraini nasution","Ivany zahira nadin","Kaka achmad khedira",
+    "Khairu umam","Lutfiah bilqis sianipar","Muhammad ichsanul arrafath","Muhammad apta zafran s.","Muhammad Bazli al hadif lubis",
+    "MUhammad fahri","Muhammad ridwan nasution","Nadira alfyza","Najla qois kirana","Nur asifa",
+    "Putri adzkia","Radith hamdani","Rais al hadi","Reihana safira wijaya","Rodiah siagian",
+    "Shafa aulia efendi","Syakira","Taufikia alfinsyahri al bintari","Thahira sabita salman s.","Windi riska rahayu","Zahratunnisa asyifa"
+  ];
+  const GURU=[
+    {icon:"📐",m:"Matematika Wajib",n:"Ibu Dwi ayu apriani, S.Pd.Gr,.",j:"jumat & sabtu",k:"Guru mapel"},
+    {icon:"📏",m:"Matematika tingkat lanjut",n:"ibu Putri winda sari batubara, s.pd.Gr,.",j:"jumat & sabtu",k:"Guru Mapel"},
+    {icon:"⚡",m:"Fisika",n:"bapak Henri sasti, m.sc.",j:"Senin & Rabu",k:"Guru mapel"},
+    {icon:"⚗️",m:"Kimia",n:"bapak Diki suprapto, M.Pd.Gr",j:"Rabu & Jumat",k:"Guru Mapel"},
+    {icon:"🧬",m:"Biologi",n:"Ibu Try ade jumita wulandari, m.Pd.Gr",j:"Senin & Rabu",k:"Wali kelas"},
+    {icon:"📖",m:"Bahasa Indonesia",n:"ibu. Ulfah RANI daulay, M.Pd.Gr",j:"Senin",k:"Guru Mapel"},
+    {icon:"🌐",m:"Bahasa Inggris",n:"ibu Raihana sakdiyah,M.A",j:"Rabu",k:"Guru Mapel"},
+    {icon:"💻",m:"Informatika",n:"Bpk. Saidina adita wicaksana,A.MD.Kom.",j:"Senin & selasa",k:"Koordinator Digital"},
+    {icon:"🎨",m:"Seni Budaya",n:"Inuralifia neami nasution, S.pd.",j:"Sabtu",k:"Guru Mapel"},
+    {icon:"🙏",m:"Bahasa arab",n:"Bpk.Muhammad nazwir harahap, S.pd.",j:"Kamis",k:"Guru Mapel"},
+    {icon:"🙏",m:"sejarah kebudayaan islam",n:"ibu Halimahtussa'diah, S.pd.",j:"SENIN & SABTU",k:"Guru Mapel"},
+    {icon:"🙏",m:"fikih",n:"Bpk. Risnul hilman siregar, S.pd.",j:"Sabtu",k:"Guru Mapel"},
+    {icon:"🙏",m:"Al-qur'an hadis",n:"ibu.Lili yuliana, S.pd.Gr",j:"Kamis",k:"Guru Mapel"},
+    {icon:"⚖️",m:"PKN",n:"Ibu Mita juhera, S.pd.Gr.",j:"Kamis",k:"Guru Mapel"},
+    {icon:"📜",m:"Sejarah",n:"Bpk.Fiki arul lansyah, s.pd.Gr",j:"Kamis",k:"Guru Mapel"},
+    {icon:"🏃",m:"PJOK",n:"Bpk.Rio agus s.pd.",j:"kamis",k:"Guru Mapel"},
+    {icon:"🧠",m:"BK / Konseling",n:"Hendriyal, M.Pd.Gr",j:"(kondisional)",k:"Konselor"},
+
+  ];
+  const UJIAN=[
+    {tgl:"10 Agt",mp:"Matematika Peminatan",jenis:"Ulangan Harian",guru:"Bpk. Agus",bdg:"bdg-pk"},
+    {tgl:"12 Agt",mp:"Fisika",jenis:"Praktikum Lab",guru:"Bpk. Ahmad",bdg:"bdg-pk"},
+    {tgl:"14 Agt",mp:"Kimia",jenis:"Ulangan BAB 3",guru:"Ibu Retno",bdg:"bdg-dk"},
+    {tgl:"15–22 Agt",mp:"Semua Mapel",jenis:"UTS",guru:"Semua Guru",bdg:"bdg-dk"},
+    {tgl:"25 Agt",mp:"Biologi",jenis:"Presentasi",guru:"Ibu Lestari",bdg:"bdg-pk"},
+    {tgl:"28 Agt",mp:"B. Indonesia",jenis:"Tugas Puisi",guru:"Bpk. Budi",bdg:"bdg-pk"},
+    {tgl:"01 Sep",mp:"B. Inggris",jenis:"Speaking Test",guru:"Ibu Maya",bdg:"bdg-pk"},
+    {tgl:"05 Sep",mp:"Informatika",jenis:"Project Digital",guru:"Bpk. Deni",bdg:"bdg-pk"},
+    {tgl:"10 Sep",mp:"Matematika Wajib",jenis:"Ulangan Harian",guru:"Ibu Sari",bdg:"bdg-pk"},
+    {tgl:"15 Sep",mp:"PKN",jenis:"Ulangan Tertulis",guru:"Ibu Dewi K.",bdg:"bdg-pk"},
+  ];
+  const MODUL=[
+    {n:"Modul Matematika Tingkat lanjut— Limit & Turunan",s:"PDF · 3.2 MB"},
+    {n:"Modul Fisika — Dinamika Rotasi & Gravitasi",s:"PDF · 2.8 MB"},
+    {n:"Modul Kimia — Laju Reaksi & Kesetimbangan",s:"PDF · 2.1 MB"},
+    {n:"Modul Biologi — Sistem Reproduksi Manusia",s:"PDF · 2.5 MB"},
+    {n:"Modul Informatika — Pemrograman Python Dasar",s:"PDF · 1.9 MB"},
+    {n:"Modul B. Inggris — Reading & Critical Writing",s:"PDF · 1.4 MB"},
+    {n:"Modul B. Indonesia — Teks Argumentasi & Eksposisi",s:"PDF · 1.1 MB"},
+    {n:"Modul Matematika Wajib — Statistika & Peluang",s:"PDF · 1.7 MB"},
+    {n:"Modul Sejarah — Era Reformasi Indonesia",s:"PDF · 2.2 MB"},
+    {n:"Modul PKN — Sistem Hukum & HAM",s:"PDF · 1.3 MB"},
+    {n:"Modul Kimia — Termokimia Lanjut",s:"PDF · 1.8 MB"},
+    {n:"Modul Fisika — Gelombang & Optik",s:"PDF · 2.4 MB"},
+  ];
+  const RANGKUMAN=[
+    {n:"Rangkuman Kimia BAB 1–4 Semester Ganjil",s:"PDF · 1.5 MB"},
+    {n:"Rangkuman Fisika Mekanika & Dinamika",s:"PDF · 1.2 MB"},
+    {n:"Rangkuman Biologi Sistem Tubuh Manusia",s:"PDF · 1.8 MB"},
+    {n:"Rangkuman Matematika Formula Lengkap",s:"PDF · 980 KB"},
+    {n:"Rangkuman B. Inggris Grammar & Vocabulary",s:"PDF · 890 KB"},
+    {n:"Catatan Pintar Informatika — Algoritma",s:"PDF · 760 KB"},
+  ];
+
+  // Navigation
+  function goPg(id,el){
+    document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
+    document.getElementById('pg-'+id).classList.add('on');
+    el.classList.add('on');
+    document.querySelectorAll('.pop').forEach(p=>p.classList.remove('on'));
+  }
+
+  // Carousel
+  let carI=0, carN=GURU.length;
+  const CT=document.getElementById('CT');
+  GURU.forEach(g=>{
+    CT.innerHTML+=`<div class="car-slide"><div class="car-ava">${g.icon}</div><div class="car-info"><h3>${g.m}</h3><p>${g.n}<br>⏰ ${g.j}</p><span class="car-badge">${g.k}</span></div></div>`;
+  });
+  function rdDots(){
+    const cd=document.getElementById('CD');cd.innerHTML='';
+    GURU.forEach((_,i)=>{const b=document.createElement('button');b.className='cdot'+(i===carI?' on':'');b.onclick=()=>{carI=i;CT.style.transform='translateX(-'+i+'00%)';rdDots()};cd.appendChild(b)});
+  }
+  function mvCar(d){carI=(carI+d+carN)%carN;CT.style.transform='translateX(-'+carI+'00%)';rdDots()}
+  rdDots();setInterval(()=>mvCar(1),3800);
+
+  // Tree
+  function togT(el){const c=el.nextElementSibling;if(!c||!c.classList.contains('tch'))return;c.classList.toggle('op');el.querySelector('.tgl').textContent=c.classList.contains('op')?'▼':'▶'}
+
+  // Accordion
+  function togAcc(btn){const b=btn.nextElementSibling;const wasOpen=b.classList.contains('op');document.querySelectorAll('.acc-b.op').forEach(x=>{x.classList.remove('op');x.previousElementSibling.querySelector('.acc-arr').classList.remove('op')});if(!wasOpen){b.classList.add('op');btn.querySelector('.acc-arr').classList.add('op')}}
+
+  // Tabs
+  function goTab(g,p,el){
+    document.querySelectorAll(`[id^="${g}-"]`).forEach(x=>x.classList.remove('on'));
+    document.getElementById(g+'-'+p).classList.add('on');
+    el.closest('.tab-list').querySelectorAll('.tab-b').forEach(b=>b.classList.remove('on'));
+    el.classList.add('on');
+  }
+
+  // Rating
+  const rLabels=['','Kurang 😔','Cukup 😐','Baik 😊','Sangat Baik 😄','Luar Biasa! 🌟'];
+  function setR(rid,n,lid){
+    document.querySelectorAll('#'+rid+' .st').forEach((s,i)=>s.classList.toggle('on',i<n));
+    document.getElementById(lid).textContent=rLabels[n]+' '+'★'.repeat(n);
+  }
+
+  // Popover
+  function togPop(id){
+    const p=document.getElementById(id),was=p.classList.contains('on');
+    document.querySelectorAll('.pop').forEach(x=>x.classList.remove('on'));
+    if(!was)p.classList.add('on');
+  }
+  document.addEventListener('click',e=>{if(!e.target.closest('.pop-w'))document.querySelectorAll('.pop').forEach(p=>p.classList.remove('on'))},{capture:true});
+
+  // Siswa Pagination
+  let swP=0; const swPP=12;
+  function rdSw(){
+    const g=document.getElementById('swGrid');g.innerHTML='';
+    const s=swP*swPP,e=Math.min(s+swPP,MURID.length);
+    for(let i=s;i<e;i++){
+      const nm=MURID[i],ini=nm.split(' ').slice(0,2).map(x=>x[0]).join('');
+      g.innerHTML+=`<div class="sc"><div class="sa">${ini}</div><div class="sn">${nm}</div><div class="sno">No. ${String(i+1).padStart(2,'0')}</div></div>`;
+    }
+    rdSwP();
+  }
+  function rdSwP(){
+    const p=document.getElementById('swPag'),tot=Math.ceil(MURID.length/swPP);p.innerHTML='';
+    const prev=document.createElement('button');prev.className='pb';prev.innerHTML='‹';prev.disabled=swP===0;prev.onclick=()=>{swP--;rdSw()};p.appendChild(prev);
+    for(let i=0;i<tot;i++){const b=document.createElement('button');b.className='pb'+(i===swP?' on':'');b.textContent=i+1;b.onclick=(pg=>()=>{swP=pg;rdSw()})(i);p.appendChild(b)}
+    const nx=document.createElement('button');nx.className='pb';nx.innerHTML='›';nx.disabled=swP===Math.ceil(MURID.length/swPP)-1;nx.onclick=()=>{swP++;rdSw()};p.appendChild(nx);
+  }
+  rdSw();
+
+  // Guru Accordion Akademik
+  const gac=document.getElementById('guruAccContainer');
+  GURU.forEach((g,i)=>{
+    gac.innerHTML+=`<div class="acc"><button class="acc-h" onclick="togAcc(this)">${g.icon} ${g.m} — ${g.n.split(',')[0]} <span class="acc-arr">▼</span></button><div class="acc-b"><p><strong>Guru Pengampu:</strong> ${g.n}</p><p><strong>Jadwal Mengajar:</strong> ${g.j}</p><p><strong>Jabatan:</strong> ${g.k}</p></div></div>`;
+  });
+
+  // Ujian Pagination
+  let ujP=0; const ujPP=5;
+  function rdUj(){
+    const el=document.getElementById('ujianList');el.innerHTML='';
+    const s=ujP*ujPP,e=Math.min(s+ujPP,UJIAN.length);
+    for(let i=s;i<e;i++){const u=UJIAN[i];el.innerHTML+=`<div class="dli"><div class="dli-info"><div class="dli-ico"><i class="ti ti-calendar-event"></i></div><div><div class="dli-n">${u.mp} — ${u.jenis}</div><div class="dli-s">📅 ${u.tgl} · ${u.guru}</div></div></div><span class="bdg ${u.bdg}">${u.jenis}</span></div>`}
+    rdUjP();
+  }
+  function rdUjP(){
+    const p=document.getElementById('ujianPag'),tot=Math.ceil(UJIAN.length/ujPP);p.innerHTML='';
+    for(let i=0;i<tot;i++){const b=document.createElement('button');b.className='pb'+(i===ujP?' on':'');b.textContent=i+1;b.onclick=(pg=>()=>{ujP=pg;rdUj()})(i);p.appendChild(b)}
+  }
+  rdUj();
+
+  // Download Modul Pagination
+  let dlP=0; const dlPP=6;
+  function rdDl(){
+    const el=document.getElementById('dlList');el.innerHTML='';
+    const s=dlP*dlPP,e=Math.min(s+dlPP,MODUL.length);
+    for(let i=s;i<e;i++){el.innerHTML+=`<div class="dli"><div class="dli-info"><div class="dli-ico"><i class="ti ti-file-download"></i></div><div><div class="dli-n">${MODUL[i].n}</div><div class="dli-s">${MODUL[i].s}</div></div></div><button class="dli-btn"><i class="ti ti-download"></i> Unduh</button></div>`}
+    rdDlP();
+  }
+  function rdDlP(){
+    const p=document.getElementById('dlPag'),tot=Math.ceil(MODUL.length/dlPP);p.innerHTML='';
+    for(let i=0;i<tot;i++){const b=document.createElement('button');b.className='pb'+(i===dlP?' on':'');b.textContent=i+1;b.onclick=(pg=>()=>{dlP=pg;rdDl()})(i);p.appendChild(b)}
+  }
+  rdDl();
+
+  // Rangkuman list
+  const rnEl=document.getElementById('rnList');
+  RANGKUMAN.forEach(r=>{rnEl.innerHTML+=`<div class="dli"><div class="dli-info"><div class="dli-ico"><i class="ti ti-file-text"></i></div><div><div class="dli-n">${r.n}</div><div class="dli-s">${r.s}</div></div></div><button class="dli-btn"><i class="ti ti-download"></i> Unduh</button></div>`});
+
+  // Forms
+  function kirimC(){const s=document.getElementById('cSucc');s.style.display='block';setTimeout(()=>s.style.display='none',5000)}
+  function kirimP(){const s=document.getElementById('pSucc');s.style.display='block';setTimeout(()=>s.style.display='none',4000)}
+  </script>
+</body>
+</html>"cout":5,"files":[{"filepath":"","fileid":11286779,"type":1,"user":-1,"3dfilename":"Gear Pump Assembly Sample.sldasm","isshare":true,"refid":10617079,"sharecode":"GSTARSAMPLEASMUS"},{"filepath":"","fileid":11286773,"type":1,"user":-1,"3dfilename":"Revit Sample.rvt","isshare":true,"refid":10617073,"sharecode":"GSTARSAMPLERVTUS"},{"filepath":"C:\Users\User\AppData\Local\Gstarsoft\DWGFastView\R16\en-WW\template\Sample.dwg","fileid":-1,"type":0,"user":-1,"3dfilename":"","isshare":false,"refid":-1,"sharecode":""},{"filepath":"C:\Users\User\AppData\Local\Gstarsoft\DWGFastView\R16\en-WW\template\PDF Sample.pdf","fileid":-1,"type":3,"user":-1,"3dfilename":"","isshare":false,"refid":-1,"sharecode":""},{"filepath":"","fileid":-1,"type":2,"user":-1,"3dfilename":"","isshare":false,"refid":-1,"sharecode":""}]}
